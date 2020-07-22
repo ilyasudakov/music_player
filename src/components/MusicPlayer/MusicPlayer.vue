@@ -313,7 +313,7 @@ export default {
 .music-player {
   width: 100%;
   height: fit-content;
-  max-width: 400px;
+  max-width: 325px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -352,6 +352,7 @@ export default {
     justify-content: center;
 
     .cover-art__item {
+      background-color: rgba($color: #bbbbbb, $alpha: 0.3);
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -370,7 +371,7 @@ export default {
         display: block;
         z-index: 1;
         position: absolute;
-        top: 60px;
+        top: calc(100% - 10px);
         transform: scale(1);
         filter: blur(15px);
         opacity: 0.5;
@@ -507,6 +508,12 @@ export default {
 
       &__cover-art {
         margin-bottom: 5px;
+
+        .cover-art__item {
+          &::before {
+            top: calc(100% - 40px) !important;
+          }
+        }
       }
 
       &__song-info {
@@ -540,6 +547,7 @@ export default {
   }
   .scale-out-enter {
     transform: scale(0.55);
+    // transform: translateX(1);
     pointer-events: none;
     opacity: 0;
   }
@@ -558,12 +566,14 @@ export default {
     transition: all 0.35s ease-in-out;
   }
   .scale-in-enter {
-    transform: scale(1.2);
+    // transform: scale(1.2);
+    transform: translateX(1);
     pointer-events: none;
     opacity: 0;
   }
   .scale-in-leave-to {
-    transform: scale(0.55);
+    // transform: scale(0.55);
+    transform: translateX(1);
     pointer-events: none;
     opacity: 0;
   }
