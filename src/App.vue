@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MusicPlayer from './components/MusicPlayer.vue'
+import MusicPlayer from './components/MusicPlayer/MusicPlayer.vue'
 
 export default {
   name: 'App',
@@ -30,6 +30,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #dfe7ef;
+  background: #efffff;
 }
 </style>
