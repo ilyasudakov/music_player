@@ -5,8 +5,10 @@
         <div
           class="cover-art__item"
           :style="{ backgroundImage: `url(${track.cover})` }"
-          v-for="(track, $index) in tracks"
-          :key="$index"
+          v-for="track in tracks.filter(
+            (track, index) => index === currentTrackIndex,
+          )"
+          :key="track.source"
         ></div>
       </transition-group>
     </div>
@@ -15,9 +17,9 @@
       <div>{{ currentTrack.artist }}</div>
     </div>
     <div class="music-player__controls">
-      <div @click="prevSong">PREV</div>
-      <div @click="play">PLAY</div>
-      <div @click="nextSong">NEXT</div>
+      <div @click="prevSong" class="controls__item">PREV</div>
+      <div @click="play" class="controls__item">PLAY</div>
+      <div @click="nextSong" class="controls__item">NEXT</div>
     </div>
     <div class="progress">
       <div class="progress__song-length">{{ duration }}</div>
@@ -54,7 +56,7 @@ export default {
           url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
         },
         {
-          name: 'Perfect Danget',
+          name: 'Perfect Danger',
           artist: 'boilerplate',
           cover:
             'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/perfect_danger.jpg',
@@ -82,9 +84,9 @@ export default {
     },
     nextSong() {
       this.transitionName = 'scale-in'
-      if (this.currentTrackIndex > 0) {
-        this.currentTrackIndex--
-      } else this.currentTrackIndex = this.tracks.length - 1
+      if (this.currentTrackIndex === this.tracks.length - 1) {
+        this.currentTrackIndex = 0
+      } else this.currentTrackIndex++
       this.currentTrack = this.tracks[this.currentTrackIndex]
       this.resetPlayer()
     },
@@ -103,6 +105,11 @@ export default {
     },
     prevSong() {
       this.transitionName = 'scale-out'
+      if (this.currentTrackIndex > 0) {
+        this.currentTrackIndex--
+      } else this.currentTrackIndex = this.tracks.length - 1
+      this.currentTrack = this.tracks[this.currentTrackIndex]
+      this.resetPlayer()
     },
     updateBar(x) {
       let progress = this.$refs.progress
@@ -170,17 +177,20 @@ export default {
   width: 100%;
   height: fit-content;
   max-width: 500px;
-  background-color: rgba($color: #333333, $alpha: 0.3);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
   justify-content: center;
   padding: 15px;
 
   &__cover-art {
     width: 300px;
     height: 250px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
 
     .cover-art__item {
       background-repeat: no-repeat;
@@ -189,6 +199,37 @@ export default {
       width: 100%;
       height: 100%;
       border-radius: 15px;
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      &:before {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 10px 0px rgba(76, 70, 124, 0.3);
+        display: block;
+        z-index: 1;
+        position: absolute;
+        top: 30px;
+        transform: scale(0.9);
+        filter: blur(10px);
+        opacity: 0.9;
+        border-radius: 15px;
+      }
+
+      &:after {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 10px 0px rgba(76, 70, 124, 0.3);
+        display: block;
+        z-index: 2;
+        position: absolute;
+        border-radius: 15px;
+      }
     }
   }
 
@@ -208,6 +249,57 @@ export default {
       background-color: #a3b3ce;
       border-radius: 10px;
     }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    .controls__item {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+
+  //scale out
+
+  .scale-out-enter-active {
+    transition: all 0.35s ease-in-out;
+  }
+  .scale-out-leave-active {
+    transition: all 0.35s ease-in-out;
+  }
+  .scale-out-enter {
+    transform: scale(0.55);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .scale-out-leave-to {
+    transform: scale(1.2);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  //scale in
+
+  .scale-in-enter-active {
+    transition: all 0.35s ease-in-out;
+  }
+  .scale-in-leave-active {
+    transition: all 0.35s ease-in-out;
+  }
+  .scale-in-enter {
+    transform: scale(1.2);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .scale-in-leave-to {
+    transform: scale(0.55);
+    pointer-events: none;
+    opacity: 0;
   }
 }
 </style>

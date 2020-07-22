@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
   padding: 0;
   margin: 0;
@@ -30,5 +30,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #dfe7ef;
 }
 </style>
