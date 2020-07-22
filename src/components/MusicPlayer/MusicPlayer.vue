@@ -333,7 +333,7 @@ export default {
     top: 5px;
     // width: 100%;
     height: 250px;
-    margin-bottom: 5px;
+    margin-bottom: -10px;
     position: relative;
     z-index: -1;
     display: flex;
@@ -497,7 +497,7 @@ export default {
       max-width: 300px;
 
       &__cover-art {
-        margin-bottom: 5px;
+        margin-bottom: -15px;
 
         .cover-art__item {
           &::before {
