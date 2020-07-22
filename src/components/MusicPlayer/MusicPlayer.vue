@@ -221,9 +221,9 @@ export default {
     },
     nextSong() {
       this.transitionName = 'scale-in'
-      if (this.currentTrackIndex === this.tracks.length - 1) {
-        this.currentTrackIndex = 0
-      } else this.currentTrackIndex++
+      this.currentTrackIndex === this.tracks.length - 1
+        ? (this.currentTrackIndex = 0)
+        : this.currentTrackIndex++
       this.currentTrack = this.tracks[this.currentTrackIndex]
       this.resetPlayer()
     },
@@ -233,18 +233,14 @@ export default {
       this.audio.currentTime = 0
       this.audio.src = this.currentTrack.source
       setTimeout(() => {
-        if (this.isTimerPlaying) {
-          this.audio.play()
-        } else {
-          this.audio.pause()
-        }
+        this.isTimerPlaying ? this.audio.play() : this.audio.pause()
       }, 300)
     },
     prevSong() {
       this.transitionName = 'scale-out'
-      if (this.currentTrackIndex > 0) {
-        this.currentTrackIndex--
-      } else this.currentTrackIndex = this.tracks.length - 1
+      this.currentTrackIndex > 0
+        ? this.currentTrackIndex--
+        : (this.currentTrackIndex = this.tracks.length - 1)
       this.currentTrack = this.tracks[this.currentTrackIndex]
       this.resetPlayer()
     },
@@ -272,15 +268,9 @@ export default {
       let dursec = Math.floor((this.audio.duration || 0) - durmin * 60)
       let curmin = Math.floor((this.audio.currentTime || 0) / 60)
       let cursec = Math.floor((this.audio.currentTime || 0) - curmin * 60)
-      // if (durmin < 10) {
-      //   durmin = '0' + durmin
-      // }
       if (dursec < 10) {
         dursec = '0' + dursec
       }
-      // if (curmin < 10) {
-      //   curmin = '0' + curmin
-      // }
       if (cursec < 10) {
         cursec = '0' + cursec
       }
