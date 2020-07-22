@@ -130,21 +130,75 @@ export default {
       transitionName: null,
       tracks: [
         {
-          name: 'Sunset Extra',
+          name: 'Rear View Mirror',
           artist: 'boilerplate',
           cover:
-            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/cover.png',
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/rear_view_mirror.png',
           source:
-            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/sunset_extra.mp3',
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/rear_view_mirror.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: `Don't Leave Me Now`,
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/dont_leave_me_now.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/dont_leave_me_now.mp3',
           url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
         },
         {
           name: 'Perfect Danger',
           artist: 'boilerplate',
           cover:
-            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/perfect_danger.jpg',
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/perfect_danger.png',
           source:
             'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/perfect_danger.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: 'Always Watch Your Back',
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/always_watch_your_back.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/always_watch_your_back.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: 'Sunset Extra',
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/sunset_extra.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/sunset_extra.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: 'Interference',
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/interference.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/interference.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: 'Remedia',
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/remedia.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/remedia.mp3',
+          url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
+        },
+        {
+          name: 'Penultima',
+          artist: 'boilerplate',
+          cover:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/penultima.png',
+          source:
+            'https://raw.githubusercontent.com/ilyasudakov/music_player/master/src/assets/penultima.mp3',
           url: 'https://www.youtube.com/watch?v=z3wAjJXbYzA',
         },
       ],
@@ -247,7 +301,7 @@ export default {
       playerData.generateTime()
     }
     this.audio.onended = function () {
-      playerData.nextTrack()
+      playerData.nextSong()
       this.isTimerPlaying = true
     }
   },
@@ -264,29 +318,32 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #eeeeeeff;
+  background-color: #ffffff;
   justify-content: center;
   // padding: 15px;
   box-shadow: 0px 10px 10px 0px rgba(76, 70, 124, 0.3);
-  z-index: 0;
+  z-index: 5;
 
   &__content {
     margin-top: 25px;
     width: 100%;
-    background-color: #ffffff;
-    // box-shadow: 0px 10px 10px 0px rgba(76, 70, 124, 0.3);
+    // background-color: rgba($color: #ffffff, $alpha: 0.3);
+    background-color: rgba($color: #ffffff, $alpha: 0.5);
+    border: 1px solid #cccccc;
+    // backdrop-filter: blur(25px);
+    box-shadow: 0px 10px 10px 0px rgba(76, 70, 124, 0.1);
     border-radius: 15px;
     padding: 15px;
-    // z-index: 1;
+    z-index: 0;
   }
 
   &__cover-art {
-    width: calc(100% - 25px);
+    width: calc(100% - 10px);
     // width: 100%;
-    top: 15px;
+    top: 5px;
     // width: 100%;
     height: 250px;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     position: relative;
     z-index: -1;
     display: flex;
@@ -305,45 +362,53 @@ export default {
       left: 0;
       top: 0;
 
-      // &:before {
-      //   content: '';
-      //   background: inherit;
-      //   width: 100%;
-      //   height: 100%;
-      //   display: block;
-      //   z-index: 1;
-      //   position: absolute;
-      //   top: 30px;
-      //   transform: scale(0.9);
-      //   filter: blur(15px);
-      //   opacity: 0.7;
-      //   border-radius: 15px;
-      // }
+      &:before {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 1;
+        position: absolute;
+        top: 60px;
+        transform: scale(1);
+        filter: blur(15px);
+        opacity: 0.5;
+        border-radius: 15px;
+      }
 
-      // &:after {
-      //   content: '';
-      //   background: inherit;
-      //   width: 100%;
-      //   height: 100%;
-      //   display: block;
-      //   z-index: 2;
-      //   position: absolute;
-      //   border-radius: 15px;
-      // }
+      &:after {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 2;
+        position: absolute;
+        border-radius: 15px;
+      }
     }
   }
 
   &__song-info {
     width: 100%;
     font-size: 2rem;
-    color: #777777;
+    color: #555555;
 
     .song-info__song-name {
       font-size: 90%;
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
     }
     .song-info__artist {
       font-size: 70%;
-      color: #999999;
+      color: #777777;
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
     }
   }
 
@@ -356,6 +421,7 @@ export default {
     justify-content: space-between;
     color: #999999;
     font-size: 90%;
+    // z-index: 0;
 
     .progress__bar {
       height: 6px;
@@ -400,15 +466,36 @@ export default {
     .controls__item {
       // margin-right: 10px;
       cursor: pointer;
+      border-radius: 999px;
+
+      &::before {
+        width: 10px;
+        height: 10px;
+        transition: 100ms ease-in-out;
+        background-color: red;
+        z-index: 999;
+        // transform: scale(0);
+        // z-index: 1;
+      }
 
       .icon {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         fill: #a3b3ce;
 
         &--play {
           width: 80px;
           height: 80px;
+        }
+      }
+
+      &:hover {
+        &::before {
+          // transform: scale(1);
+        }
+
+        .icon {
+          fill: #333 !important;
         }
       }
     }
